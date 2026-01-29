@@ -22,6 +22,7 @@ export default function IndexInfor() {
           1740: { slidesPerView: 4 },
         }}
         zoom={false}
+        allowTouchMove={false}
         className="h-full w-full"
       >
         {/* VN30 */}
