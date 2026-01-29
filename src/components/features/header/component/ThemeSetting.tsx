@@ -20,16 +20,16 @@ export default function ThemeSetting() {
       <div className="w-full h-full flex flex-row items-center justify-between relative">
         <div
           className={`absolute top-0 h-full w-1/2 rounded-2xl bg-red-active group-hover:bg-red-hover bg-switch pointer-events-none ${
-            theme === "light" ? "left-1/2" : "left-0"
+            theme === "dark" ? "left-1/2" : "left-0"
           }`}
         />
 
         <div className="relative z-10 w-1/2 h-full flex items-center justify-center">
-          <Sun className="size-4 md-size-6" />
+          <Sun className="size-4" />
         </div>
 
         <div className="relative z-10 w-1/2 h-full flex items-center justify-center">
-          <SunMoon className="size-4 md-size-6" />
+          <SunMoon className="size-4" />
         </div>
       </div>
     </div>
