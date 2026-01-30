@@ -1,5 +1,10 @@
 {
-  "login": "Login",
-  "logout": "Sign out",
-  "cancel": "Exit"
+  "login": "Log In",
+  "logout": "Log Out",
+  "cancel": "Cancel",
+
+  "topic": "Theme",
+  "language": "Language",
+
+  "setting-view": "Interface Settings"
 }

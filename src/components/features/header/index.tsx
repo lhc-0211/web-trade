@@ -1,32 +1,50 @@
 import Logo from "@/assets/imgs/logo/lhc_logo.png";
+import { LANGUAGE_KEY } from "@/configs/global";
+import type { LanguageKey } from "@/types";
+import { getBrowserPreferredLang } from "@/utils/global";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { Earth, Lightbulb, Settings } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui/Button";
+import LanguageSetting from "./component/LanguageSetting";
 import ThemeSetting from "./component/ThemeSetting";
 
 export default function Header() {
   const { t } = useTranslation();
 
-  const settingRef = useRef<HTMLDivElement>(null);
+  const { i18n } = useTranslation();
 
-  const [openSetting, setOpenSetting] = useState(false);
+  const currentLang = (i18n.resolvedLanguage ||
+    i18n.language ||
+    "vi") as LanguageKey;
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        settingRef.current &&
-        !settingRef.current.contains(event.target as Node)
-      ) {
-        setOpenSetting(false);
-      }
-    };
+    const saved = localStorage.getItem(LANGUAGE_KEY) as LanguageKey | null;
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [settingRef]);
+    if (saved === "vi" || saved === "en") {
+      if (saved !== i18n.resolvedLanguage) {
+        i18n.changeLanguage(saved);
+      }
+      document.documentElement.lang = saved;
+      return;
+    }
+
+    const preferred = getBrowserPreferredLang();
+    const initial: LanguageKey = preferred === "vi" ? "vi" : "en";
+
+    i18n.changeLanguage(initial);
+    document.documentElement.lang = initial;
+    localStorage.setItem(LANGUAGE_KEY, initial);
+  }, []);
+
+  // Toggle handler
+  const handleChangeLanguage = useCallback(() => {
+    const next = currentLang === "vi" ? "en" : "vi";
+    i18n.changeLanguage(next);
+    localStorage.setItem(LANGUAGE_KEY, next);
+    document.documentElement.lang = next;
+  }, [currentLang, i18n]);
 
   return (
     <header className="flex items-center justify-between w-full h-full bg-bg-secondary pr-2 md:pr-4 border-b border-bg-tertiary">
@@ -35,42 +53,49 @@ export default function Header() {
         alt="logo-website"
         className="md:h-14 md:w-14 w-12 h-12"
       />
-
       {/* Chức năng */}
       <div className="flex flex-row items-center justify-center gap-2 md:gap-4">
         {/* Cài đặt giao diện */}
-        <div className="relative">
-          <div
-            className="hover:bg-primary-hover p-1 rounded-md"
-            data-tooltip-id="global-tooltip"
-            data-tooltip-content="Cài đặt giao diện!"
-            onClick={() => setOpenSetting(true)}
-          >
-            <Settings className="size-5" />
-          </div>
-          {openSetting && (
+        <Menu as="div" className="relative inline-block">
+          <MenuButton className="flex w-full justify-center rounded-md hover:bg-primary-hover active:bg-primary-active">
             <div
-              className="absolute top-7 right-0 z-9999 md:px-4 md:py-2 px-2 py-1 bg-bg-tertiary rounded-md md:w-80 w-50 border border-border-informative/10 flex flex-col gap-3"
-              ref={settingRef}
+              className="hover:bg-primary-hover p-1 rounded-md"
+              data-tooltip-id="global-tooltip"
+              data-tooltip-content={t("setting-view")}
             >
-              <div className="flex flex-row items-center justify-between">
-                <div className="text-sm flex flex-row items-center justify-center gap-2">
-                  <Lightbulb className="size-5 text-red-base" />
-                  <span>Chủ đề</span>
-                </div>
-                <ThemeSetting />
-              </div>
-              <div className="flex flex-row items-center justify-between">
-                <div className="text-sm flex flex-row items-center justify-center gap-2">
-                  <Earth className="size-5 text-red-base" />
-                  <span>Ngôn ngữ</span>
-                </div>
-                <ThemeSetting />
-              </div>
+              <Settings className="size-5" />
             </div>
-          )}
-        </div>
+          </MenuButton>
 
+          <MenuItems
+            transition
+            className="absolute right-0 z-10 md:px-4 md:py-2 px-2 py-1 bg-bg-tertiary rounded-md md:w-80 w-50 border border-border-informative/10 flex flex-col gap-3 origin-top-right  outline-1 -outline-offset-1 outline-white/10 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+          >
+            <div className="flex flex-col gap-1 md:gap-3">
+              <MenuItem>
+                <div className="flex flex-row items-center justify-between">
+                  <div className="text-sm flex flex-row items-center justify-center gap-2">
+                    <Lightbulb className="size-5 text-red-base" />
+                    <span>{t("topic")}</span>
+                  </div>
+                  <ThemeSetting />
+                </div>
+              </MenuItem>
+              <MenuItem>
+                <div className="flex flex-row items-center justify-between">
+                  <div className="text-sm flex flex-row items-center justify-center gap-2">
+                    <Earth className="size-5 text-red-base" />
+                    <span>{t("language")}</span>
+                  </div>
+                  <LanguageSetting
+                    language={currentLang || "vi"}
+                    handleChangeLanguage={handleChangeLanguage}
+                  />
+                </div>
+              </MenuItem>
+            </div>
+          </MenuItems>
+        </Menu>
         {/* login */}
         <Button>{t("login")}</Button>
       </div>

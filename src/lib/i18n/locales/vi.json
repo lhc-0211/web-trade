@@ -1,5 +1,10 @@
 {
   "login": "Đăng nhập",
   "logout": "Đăng xuất",
-  "cancel": "Thoát"
+  "cancel": "Thoát",
+
+  "topic": "Chủ đề",
+  "language": "Ngôn ngữ",
+
+  "setting-view": "Cài đặt giao diện!"
 }
