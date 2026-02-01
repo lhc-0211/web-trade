@@ -5,7 +5,7 @@
   --c: no-repeat linear-gradient(#bf6f6f 0 0);
   background: var(--c), var(--c), #efdbdb;
   background-size: 60% 100%;
-  animation: l16 3s infinite;
+  animation: l16 1s infinite;
 }
 @keyframes l16 {
   0% {
@@ -55,7 +55,7 @@
   -webkit-background-clip: text;
   background-clip: text;
 
-  animation: shimmer 1.8s linear infinite;
+  animation: shimmer 0.8s linear infinite;
   pointer-events: none;
 }
 

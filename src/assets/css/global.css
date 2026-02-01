@@ -15,7 +15,3 @@ body {
 .bg-switch {
   transition: left 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-
-#global-tooltip {
-  z-index: 999999 !important;
-}

@@ -1,7 +1,19 @@
+import { ShiftingDropDown } from "@/components/ui/ShiftingDropDown";
+import { MENU_BOARD } from "@/configs";
+import { useState } from "react";
+
 export default function MenuBoard() {
+  const [id, setId] = useState<string>("vn30");
+
+  const handleChangeId = (id: string) => {
+    setId(id);
+  };
+
   return (
     <div className="w-full h-full flex flex-row gap-2 items-center">
-      {/* <ShiftingDropDown /> */}
+      {MENU_BOARD.map((t) => (
+        <ShiftingDropDown t={t} id={id} handleChangeId={handleChangeId} />
+      ))}
     </div>
   );
 }

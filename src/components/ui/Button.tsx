@@ -1,11 +1,11 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
-const buttonVariants = cva("flex items-center justify-center rounded", {
+const buttonVariants = cva("flex items-center justify-center rounded-md", {
   variants: {
     variant: {
       default:
-        "bg-red-base text-context-primary text-sm hover:bg-red-hover disable:bg-red-disabled active:bg-red-active",
+        "bg-red-base text-white text-sm hover:bg-red-hover disable:bg-red-disabled active:bg-red-active",
     },
     size: {
       default: "md:h-9 h-7 md:px-4 px-2 py-2 has-[>svg]:px-3",

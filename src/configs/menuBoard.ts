@@ -35,15 +35,15 @@ export const MENU_BOARD = [
     children: [
       {
         id: "hsx_oddlot",
-        title: "VN30",
+        title: "Lô lẻ HSX",
       },
       {
         id: "hnx_oddlot",
-        title: "HNX",
+        title: "Lô lẻ HNX",
       },
       {
         id: "upcom_oddlot",
-        title: "UPCOM",
+        title: "Lô lẻ UPCOM",
       },
     ],
   },

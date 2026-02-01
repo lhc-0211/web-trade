@@ -1,4 +1,4 @@
-import LogoBarLoading from "@/components/features/ui/LogoProgressLoading";
+import LogoBarLoading from "@/components/ui/LogoProgressLoading";
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 

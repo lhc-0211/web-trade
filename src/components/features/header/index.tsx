@@ -3,17 +3,19 @@ import { LANGUAGE_KEY } from "@/configs/global";
 import type { LanguageKey } from "@/types";
 import { getBrowserPreferredLang } from "@/utils/global";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { Earth, Lightbulb, Settings } from "lucide-react";
-import { useCallback, useEffect } from "react";
+import { Earth, Expand, Lightbulb, Settings, Shrink } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "../ui/Button";
+import { Button } from "../../ui/Button";
 import LanguageSetting from "./component/LanguageSetting";
 import ThemeSetting from "./component/ThemeSetting";
+import Time from "./component/Time";
 
 export default function Header() {
   const { t } = useTranslation();
 
   const { i18n } = useTranslation();
+  const [isZoom, setIsZoom] = useState(false);
 
   const currentLang = (i18n.resolvedLanguage ||
     i18n.language ||
@@ -46,20 +48,97 @@ export default function Header() {
     document.documentElement.lang = next;
   }, [currentLang, i18n]);
 
+  const handleToggleFullscreen = () => {
+    const elem = document.documentElement as HTMLElement;
+
+    if (!document.fullscreenElement) {
+      // Vào fullscreen
+      if (elem.requestFullscreen) {
+        elem
+          .requestFullscreen()
+          .then(() => {
+            setIsZoom(true);
+          })
+          .catch((err) => {
+            console.error("Không thể bật fullscreen:", err);
+          });
+      } else if (
+        (
+          elem as HTMLElement & {
+            webkitRequestFullscreen?: () => Promise<void>;
+          }
+        ).webkitRequestFullscreen
+      ) {
+        (
+          elem as HTMLElement & {
+            webkitRequestFullscreen: () => Promise<void>;
+          }
+        ).webkitRequestFullscreen();
+        setIsZoom(true);
+      } else if (
+        (elem as HTMLElement & { msRequestFullscreen?: () => Promise<void> })
+          .msRequestFullscreen
+      ) {
+        (
+          elem as HTMLElement & { msRequestFullscreen: () => Promise<void> }
+        ).msRequestFullscreen();
+        setIsZoom(true);
+      }
+    } else {
+      // Thoát fullscreen
+      if (document.exitFullscreen) {
+        document
+          .exitFullscreen()
+          .then(() => {
+            setIsZoom(false);
+          })
+          .catch((err) => {
+            console.error("Không thể thoát fullscreen:", err);
+          });
+      } else if (
+        (
+          document as Document & {
+            webkitExitFullscreen?: () => Promise<void>;
+          }
+        ).webkitExitFullscreen
+      ) {
+        (
+          document as Document & { webkitExitFullscreen: () => Promise<void> }
+        ).webkitExitFullscreen();
+        setIsZoom(false);
+      } else if (
+        (document as Document & { msExitFullscreen?: () => Promise<void> })
+          .msExitFullscreen
+      ) {
+        (
+          document as Document & { msExitFullscreen: () => Promise<void> }
+        ).msExitFullscreen();
+        setIsZoom(false);
+      }
+    }
+  };
+
+  console.info("isZoom", isZoom);
+
   return (
-    <header className="flex items-center justify-between w-full h-full bg-bg-secondary pr-2 md:pr-4 border-b border-bg-tertiary">
+    <header className="flex items-center justify-between w-full h-full bg-bg-secondary pr-2 border-b border-bg-tertiary">
       <img
         src={Logo}
         alt="logo-website"
         className="md:h-14 md:w-14 w-12 h-12"
       />
       {/* Chức năng */}
-      <div className="flex flex-row items-center justify-center gap-2 md:gap-4">
+      <div className="flex flex-row items-center justify-center md:gap-2 gap-1">
+        {/* Time */}
+        <Time />
+
+        <div className="h-4 w-px bg-bg-tertiary md:mx-2 mx-1"></div>
+
         {/* Cài đặt giao diện */}
         <Menu as="div" className="relative inline-block">
-          <MenuButton className="flex w-full justify-center rounded-md hover:bg-primary-hover active:bg-primary-active">
+          <MenuButton className="flex w-full justify-center rounded-md hover:bg-red-hover active:bg-primary-active">
             <div
-              className="hover:bg-primary-hover p-1 rounded-md"
+              className="hover:bg-red-hover p-1 rounded-md"
               data-tooltip-id="global-tooltip"
               data-tooltip-content={t("setting-view")}
               data-tooltip-place="left"
@@ -97,6 +176,32 @@ export default function Header() {
             </div>
           </MenuItems>
         </Menu>
+
+        {/* Zoom web */}
+        {isZoom ? (
+          <div
+            className="p-1 hover:bg-red-hover rounded-md"
+            data-tooltip-id="global-tooltip"
+            data-tooltip-content={t("shrink-web")}
+            data-tooltip-place="left"
+            onClick={() => handleToggleFullscreen()}
+          >
+            <Shrink className="size-4" />
+          </div>
+        ) : (
+          <div
+            className="p-1 hover:bg-red-hover rounded-md"
+            data-tooltip-id="global-tooltip"
+            data-tooltip-content={t("explan-web")}
+            data-tooltip-place="left"
+            onClick={() => handleToggleFullscreen()}
+          >
+            <Expand className="size-4" />
+          </div>
+        )}
+
+        <div className="h-4 w-px bg-bg-tertiary md:mx-2 mx-1"></div>
+
         {/* login */}
         <Button>{t("login")}</Button>
       </div>

@@ -6,5 +6,7 @@
   "topic": "Theme",
   "language": "Language",
 
-  "setting-view": "Interface Settings"
+  "setting-view": "Interface Settings",
+  "explan-web": "Enlarge the interface",
+  "shrink-web": "Minimize the interface"
 }
