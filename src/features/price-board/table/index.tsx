@@ -1,11 +1,9 @@
-import BodyTable from "./BodyTable";
-import HeaderTable from "./HeaderTable";
+import BaseTable from "./BaseTable";
 
 export default function Table() {
   return (
     <div className="w-full h-full flex flex-col items-center">
-      <HeaderTable />
-      <BodyTable />
+      <BaseTable />
     </div>
   );
 }

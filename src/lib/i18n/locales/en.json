@@ -1,14 +1,15 @@
 {
-  "login": "Log In",
-  "logout": "Log Out",
+  "login": "Log in",
+  "logout": "Log out",
   "cancel": "Cancel",
 
   "topic": "Theme",
   "language": "Language",
 
-  "setting-view": "Interface Settings",
-  "explan-web": "Enlarge the interface",
-  "shrink-web": "Minimize the interface",
+  "setting-view": "Display Settings",
+  "explan-web": "Expand View",
+  "shrink-web": "Collapse View",
 
-  "price-board": "Price Board"
+  "price-board": "Price Board",
+  "no-data": "No data available!"
 }

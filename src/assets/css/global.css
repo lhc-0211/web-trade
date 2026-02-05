@@ -5,11 +5,8 @@
   font-family: "Hanken Grotesk";
   -webkit-user-select: none;
   user-select: none;
-}
-
-body {
-  background: var(--color-bg-primary);
-  color: var(--text-content-primary);
+  background: var(--bg-primary) !important;
+  color: var(--content-primary) !important;
 }
 
 .bg-switch {

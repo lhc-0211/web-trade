@@ -1,0 +1,71 @@
+.ag-theme-quartz-custom {
+  --ag-background-color: var(--bg-primary) !important;
+  --ag-foreground-color: var(--content-primary) !important;
+  --ag-header-background-color: var(--bg-secondary) !important;
+  --ag-odd-row-background-color: var(--bg-tertiary) !important;
+  --ag-font-size: 12px;
+}
+
+.ag-theme-quartz-custom {
+  border-radius: 8px;
+}
+
+/* Loại bỏ border thừa ở cột cuối cùng */
+.ag-theme-quartz-custom .ag-cell:last-child {
+  border-right: none;
+}
+
+.ag-body-horizontal-scroll-viewport,
+.ag-body-viewport {
+  scrollbar-width: thin;
+  scrollbar-color: #475569 transparent;
+}
+
+.ag-body-horizontal-scroll-viewport::-webkit-scrollbar,
+.ag-body-viewport::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.ag-body-horizontal-scroll-viewport::-webkit-scrollbar-track,
+.ag-body-viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ag-body-horizontal-scroll-viewport::-webkit-scrollbar-thumb,
+.ag-body-viewport::-webkit-scrollbar-thumb {
+  background-color: #475569;
+  border-radius: 8px;
+}
+
+.ag-body-horizontal-scroll-viewport::-webkit-scrollbar-thumb:hover,
+.ag-body-viewport::-webkit-scrollbar-thumb:hover {
+  background-color: #64748b;
+}
+
+/* scroll ngang pin */
+.ag-horizontal-left-spacer {
+  display: none !important;
+}
+
+.ag-header-cell-comp-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ag-header-cell-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ag-header-cell,
+.ag-header-group-cell {
+  padding: 0;
+}
+
+.ag-header-cell-label,
+.ag-header-group-cell-label {
+  padding: 0 !important;
+}

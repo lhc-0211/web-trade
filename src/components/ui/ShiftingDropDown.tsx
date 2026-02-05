@@ -35,7 +35,7 @@ export const ShiftingDropDown = ({
         active={active}
         checkOnclick={checkOnclick}
       >
-        <span className="flex flex-row md:gap-1 gap-0.5 items-center justify-center">
+        <span className="flex flex-row md:gap-1 gap-0.5 items-center justify-center h-full">
           {t?.children?.some((i) => i?.id === id)
             ? t?.children?.find((i) => i?.id === id)?.title
             : t.title}
@@ -122,7 +122,7 @@ const Content: FC<ContentProps> = ({ children, idMenu, handleChangeId }) => {
         opacity: 0,
         y: 8,
       }}
-      className="absolute left-0 top-[calc(100%+14px)] w-40 rounded-lg border border-neutral-600 from-neutral-900 via-neutral-900 to-neutral-800 p-2 flex flex-col gap-2"
+      className="absolute left-0 top-[calc(100%+14px)] w-40 rounded-lg border border-neutral-600 bg-bg-secondary p-2 flex flex-col gap-2 z-50"
     >
       <Bridge />
 
